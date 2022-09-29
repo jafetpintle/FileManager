@@ -1,7 +1,5 @@
-from re import S
 import shutil
 import os
-import ctypes
 
 path_src = r'Files\Documentos'
 path_dst = r'Files\Destino'
@@ -25,10 +23,9 @@ def get_files(dir_path: str, ext: str):
 
     # Iterate directory
     for path in os.listdir(dir_path):
-        # check if current path is a file
-        if os.path.isfile(os.path.join(dir_path, path)):
-            if(has_extension(ext, path)):
-                files.append(path)
+        # check if is of my file extension
+        if(has_extension(ext, path)):
+            files.append(path)
     return files
     
 def has_extension(ext: str, file: str)->bool:
