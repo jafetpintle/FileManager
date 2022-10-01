@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import E, filedialog
 
 
 def selec_folder(text):
@@ -9,7 +9,6 @@ def selec_folder(text):
     """
     text.delete(0,'end')
     text.insert(0,filedialog.askdirectory())
-
 
 class MainApplication(tk.Frame):
     
@@ -29,20 +28,25 @@ class MainApplication(tk.Frame):
 
         #Source folder
         tk.Label(self, text='Move from: ', font=font_label, fg=colors['text1'], bg=colors['primary']).grid(column=0, row=0, padx=5, pady=5, sticky=tk.W)
-        entry_source = tk.Entry(self, width=35, font=font_entry)
-        entry_source.grid(column=1,row=0,sticky=tk.W)
-        tk.Button(self, text='Select folder', bg=colors['secundary'], fg=colors['text1'], font=font_button, command=lambda: selec_folder(entry_source)).grid(column=2,row=0, padx=10, pady=5, sticky=tk.W)
+        source_entry = tk.Entry(self, width=35, font=font_entry)
+        source_entry.grid(column=1,row=0,sticky=tk.W)
+        
+        source_buttton = tk.Button(self, text='Select folder', bg=colors['secundary'], fg=colors['text1'], font=font_button, command=lambda: selec_folder(source_entry))
+        source_buttton.grid(column=2,row=0, padx=10, pady=5, sticky=tk.W)
     
         #Destination folder
         tk.Label(self, text='To: ', font=font_label, fg=colors['text1'], bg=colors['primary']).grid(column=0, row=1, padx=5, pady=5, sticky=tk.W)
-        entry_destination = tk.Entry(self, width=35, font=font_entry)
-        entry_destination.grid(column=1, row=1, sticky=tk.W)
-        tk.Button(self, text='Select folder', bg=colors['secundary'], fg=colors['text1'], font=font_button, command=lambda: selec_folder(entry_destination)).grid(column=2,row=1 , padx=10, pady=5, sticky=tk.W)
+        destination_entry = tk.Entry(self, width=35, font=font_entry)
+        destination_entry.grid(column=1, row=1, sticky=tk.W)
+        
+        destination_button = tk.Button(self, text='Select folder', bg=colors['secundary'], fg=colors['text1'], font=font_button, command=lambda: selec_folder(destination_entry))
+        destination_button.grid(column=2,row=1 , padx=10, pady=5, sticky=tk.W)
 
-        #Extension and move files
+        #Type of file
         tk.Label(self, text='Type file: ', font=font_label, fg=colors['text1'], bg=colors['primary']).grid(column=0,row=2, padx=5, pady=5,sticky=tk.W)
         extension = tk.Entry(self, width=5, font=font_entry)
         extension.grid(column=1,row=2, sticky=tk.W)
+        tk.Label(self, text='(Eg: jpg, png, pdf, ...) ', font=('Trebuchet MS',10), fg=colors['text1'], bg=colors['primary']).grid(column=1,row=2,padx=80, sticky=tk.W)
 
         #Find and move buttons
         tk.Button(self, text='Move files', bg=colors['secundary'], fg=colors['text1'], font=font_button, width=11).grid(column=2, row=4, padx=10,pady=70, sticky=tk.NE)
@@ -50,7 +54,7 @@ class MainApplication(tk.Frame):
 
         #Files
         tk.Label(self,text='Files: ', font=font_label, fg=colors['text1'], bg=colors['primary']).grid(column=0, row=4, padx=5,pady=5, sticky=tk.NW)
-        files = tk.Text(self, height=15, width=50,  font=font_text)
+        files = tk.Text(self, height=15, width=50,  font=font_text, state='disabled')
         scroll = tk.Scrollbar(self, orient='vertical', command=files.yview)
         files['yscrollcommand'] = scroll.set
         files.grid(column=1, row=4, pady=10, sticky=tk.W)
