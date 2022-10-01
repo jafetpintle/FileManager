@@ -1,7 +1,19 @@
 import tkinter as tk
+from tkinter import filedialog
+
+
+def selec_folder(text):
+    """
+    Display a box to select a folder and get the path
+    and insert the text in the entry widget
+    """
+    text.delete(0,'end')
+    text.insert(0,filedialog.askdirectory())
 
 
 class MainApplication(tk.Frame):
+    
+
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
@@ -19,13 +31,13 @@ class MainApplication(tk.Frame):
         tk.Label(self, text='Move from: ', font=font_label, fg=colors['text1'], bg=colors['primary']).grid(column=0, row=0, padx=5, pady=5, sticky=tk.W)
         entry_source = tk.Entry(self, width=35, font=font_entry)
         entry_source.grid(column=1,row=0,sticky=tk.W)
-        tk.Button(self, text='Select folder', bg=colors['secundary'], fg=colors['text1'], font=font_button).grid(column=2,row=1, padx=10, pady=5, sticky=tk.W)
-
+        tk.Button(self, text='Select folder', bg=colors['secundary'], fg=colors['text1'], font=font_button, command=lambda: selec_folder(entry_source)).grid(column=2,row=0, padx=10, pady=5, sticky=tk.W)
+    
         #Destination folder
         tk.Label(self, text='To: ', font=font_label, fg=colors['text1'], bg=colors['primary']).grid(column=0, row=1, padx=5, pady=5, sticky=tk.W)
-        destinarion_source = tk.Entry(self, width=35, font=font_entry)
-        destinarion_source.grid(column=1, row=1, sticky=tk.W)
-        tk.Button(self, text='Select folder', bg=colors['secundary'], fg=colors['text1'], font=font_button).grid(column=2,row=0 , padx=10, pady=5, sticky=tk.W)
+        entry_destination = tk.Entry(self, width=35, font=font_entry)
+        entry_destination.grid(column=1, row=1, sticky=tk.W)
+        tk.Button(self, text='Select folder', bg=colors['secundary'], fg=colors['text1'], font=font_button, command=lambda: selec_folder(entry_destination)).grid(column=2,row=1 , padx=10, pady=5, sticky=tk.W)
 
         #Extension and move files
         tk.Label(self, text='Type file: ', font=font_label, fg=colors['text1'], bg=colors['primary']).grid(column=0,row=2, padx=5, pady=5,sticky=tk.W)
