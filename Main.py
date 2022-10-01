@@ -4,8 +4,8 @@ from tkinter import filedialog
 
 def selec_folder(text):
     """
-    Display a box to select a folder and get the path
-    and insert the text in the entry widget
+    Display a box to select a folder, get the path
+    and insert it in the entry widget
     """
     text.delete(0,'end')
     text.insert(0,filedialog.askdirectory())
@@ -20,7 +20,7 @@ class MainApplication(tk.Frame):
         colors = {'primary':'#2b2d42', 'secundary':'#d90429', 'text1':'#edf2f4'}
 
         self['background'] = colors['primary']
-        #Def button font
+        #Def widgets fonts
         font_button =  ('Trebuchet MS', 15)
         font_label = ('Trebuchet MS', 20)
         font_entry = ('Trebuchet MS', 20)
