@@ -36,7 +36,7 @@ class FileManager:
         #Return true if is the same extension
         return ext == split_file[1]
 
-    def get_files(self):
+    def set_files(self):
         '''
         Funtion to walk across a directory an return
         all the files inside
@@ -51,7 +51,9 @@ class FileManager:
                 files.append(path)
         self.files = files.copy()
 
-    def print_files(self):
+    def get_files(self):
+        files_str = ''
         for file in self.files:
-            print(f'File: {file}')
+            files_str+= (f'File: {file}')+'\n'
+        return files_str
     
