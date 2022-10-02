@@ -1,5 +1,6 @@
+from asyncio.windows_events import NULL
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 import FileManager
 
 
@@ -24,11 +25,18 @@ def find_files(file_manager, text, ext):
     """
     #Set and check extension file
     ext_file = ext.get()
-    file_manager.set_extension_file(ext_file)
+    if(ext_file != ''):
+        file_manager.set_extension_file(ext_file)
 
-    #Find files
-    file_manager.set_files()
-    text.insert(tk.INSERT , file_manager.get_files())
+        #Find files
+        file_manager.set_files()
+        if( file_manager.get_files()):
+            text.insert(tk.INSERT , file_manager.get_files())
+        else:
+            messagebox.showwarning(message='No files found', title='Warning!')
+    else:
+        messagebox.showwarning(message='Type a extension file', title='Warning!')
+        ext.focus()
 
 def move_files(file_manager):
     """

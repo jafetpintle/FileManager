@@ -45,10 +45,13 @@ class FileManager:
         files = []
 
         # Iterate directory
-        for path in os.listdir(self.source_path):
-            # check if is of my file extension
-            if(self.has_extension(self.extension_file, path)):
-                files.append(path)
+        try:
+            for path in os.listdir(self.source_path):
+                # check if is of my file extension
+                if(self.has_extension(self.extension_file, path)):
+                    files.append(path)
+        except FileNotFoundError:
+            print('Files not found')
         self.files = files.copy()
 
     def get_files(self):
