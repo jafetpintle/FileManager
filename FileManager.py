@@ -57,6 +57,6 @@ class FileManager:
     def get_files(self):
         files_str = ''
         for file in self.files:
-            files_str+= (f'File: {file}')+'\n'
+            files_str+= file+'\n'
         return files_str
     

@@ -13,16 +13,15 @@ def select_folder(text, file_manager, type):
     text.delete(0,'end')
     text.insert(0,path)
     #Check if is source of detination path
-    if type == 1:
-        file_manager.set_source_path(path)
-    else:
+    if type == 0:
         file_manager.set_destination_path(path)
 
-def find_files(file_manager, text, ext):
+def find_files(file_manager, text, ext, source):
     """
     Search files from the source selected
     and insert them to the text selector
     """
+    file_manager.set_source_path(source.get())
     #Set and check extension file
     ext_file = ext.get()
     if(ext_file != ''):
@@ -31,7 +30,10 @@ def find_files(file_manager, text, ext):
         #Find files
         file_manager.set_files()
         if( file_manager.get_files()):
+            text.configure(state='normal')
+            text.delete('1.0', tk.END)
             text.insert(tk.INSERT , file_manager.get_files())
+            text.configure(state='disabled')
         else:
             messagebox.showwarning(message='No files found', title='Warning!')
     else:
@@ -88,7 +90,7 @@ class MainApplication(tk.Frame):
 
         #Files
         tk.Label(self,text='Files: ', font=font_label, fg=colors['text1'], bg=colors['primary']).grid(column=0, row=4, padx=5,pady=5, sticky=tk.NW)
-        files = tk.Text(self, height=15, width=50,  font=font_text)
+        files = tk.Text(self, height=15, width=50,  font=font_text, state='disabled')
         scroll = tk.Scrollbar(self, orient='vertical', command=files.yview)
         files['yscrollcommand'] = scroll.set
         files.grid(column=1, row=4, pady=10, sticky=tk.W)
@@ -96,7 +98,7 @@ class MainApplication(tk.Frame):
 
         #Find and move buttons
         tk.Button(self, text='Move files', bg=colors['secundary'], fg=colors['text1'], font=font_button, width=11, command=lambda: move_files(file_manager)).grid(column=2, row=4, padx=10,pady=70, sticky=tk.NE)
-        tk.Button(self, text='Find files', bg=colors['secundary'], fg=colors['text1'], font=font_button,width=11, command=lambda: find_files(file_manager, files, extension)).grid(column=2,row=4, padx=10, sticky=tk.NE)
+        tk.Button(self, text='Find files', bg=colors['secundary'], fg=colors['text1'], font=font_button,width=11, command=lambda: find_files(file_manager, files, extension, source_entry)).grid(column=2,row=4, padx=10, sticky=tk.NE)
 
         
 
