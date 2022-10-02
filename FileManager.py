@@ -15,12 +15,16 @@ class FileManager:
     def set_destination_path(self, dst):
         self.destination_path = dst
 
-    def move_files(self,files_names):
+    def set_extension_file(self, ext):
+        ext='.'+ext
+        self.extension_file = ext
+
+    def move_files(self):
         '''
         Function to move files from a directory
         to other directory
         '''
-        for file in files_names:
+        for file in self.files:
             shutil.move(self.source_path+'\\'+file, self.destination_path)
         
     def has_extension(self,ext: str, file: str)->bool:
@@ -32,7 +36,7 @@ class FileManager:
         #Return true if is the same extension
         return ext == split_file[1]
 
-    def get_files(self,dir_path: str, ext: str):
+    def get_files(self):
         '''
         Funtion to walk across a directory an return
         all the files inside
@@ -41,9 +45,9 @@ class FileManager:
         files = []
 
         # Iterate directory
-        for path in os.listdir(dir_path):
+        for path in os.listdir(self.source_path):
             # check if is of my file extension
-            if(self.has_extension(ext, path)):
+            if(self.has_extension(self.extension_file, path)):
                 files.append(path)
         self.files = files.copy()
 
